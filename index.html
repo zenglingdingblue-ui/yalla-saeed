@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Yalla Saeed">
+<meta name="theme-color" content="#17143a">
+<meta name="description" content="Pocket Saudi Arabic for your ears. Reem and fourteen Gulf voices, fully offline.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<link rel="icon" href="icons/icon-192.png">
+<title>Yalla Saeed</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header class="top">
+    <button class="brand" id="aboutBtn" aria-label="About Reem and the cast">
+      <span class="logo" data-reem></span>
+      <span class="name"><b>Yalla Saeed</b><i lang="ar" dir="rtl">يلا سعيد</i></span>
+    </button>
+    <button class="pill" id="offPill" aria-live="polite">…</button>
+  </header>
+
+  <main>
+    <!-- ───────────── LISTEN ───────────── -->
+    <section class="view on" id="v-listen">
+      <div class="reem">
+        <button class="ava" id="ava" data-reem aria-label="About Reem"></button>
+        <div class="bubble">
+          <span class="who" id="who">Reem</span>
+          <p id="cap">Headphones in, Saeed? Tap play. I'll do the rest.</p>
+        </div>
+      </div>
+
+      <article class="now" id="now">
+        <div class="epline"><span id="epName"></span><span id="count"></span></div>
+        <div class="stk" id="stk"></div>
+        <div class="word" id="wordBox">
+          <div class="ar" id="nAr" lang="ar" dir="rtl"></div>
+          <div class="tl" id="nTl"></div>
+          <div class="en" id="nEn"></div>
+        </div>
+        <div class="hook" id="nHook"></div>
+        <div class="phr" id="phrBox">
+          <span class="lab">the only phrase you need</span>
+          <div class="ar2" id="pAr" lang="ar" dir="rtl"></div>
+          <div class="tl2" id="pTl"></div>
+          <div class="en2" id="pEn"></div>
+        </div>
+        <div class="crew" id="crew" aria-label="Voices for this word"></div>
+      </article>
+
+      <div class="modes" role="tablist">
+        <button data-mode="lesson" class="on" role="tab"><b>Lesson</b><small>Reem teaches, friends repeat</small></button>
+        <button data-mode="drift" role="tab"><b>Drift</b><small>slow, sleepy, almost no talking</small></button>
+      </div>
+
+      <div class="opts">
+        <div class="row" id="epRow" aria-label="Jump to a round"></div>
+        <div class="row">
+          <span class="lbl">Repeat</span>
+          <button class="chip" data-loop="all">everything</button>
+          <button class="chip" data-loop="ep">this round</button>
+          <button class="chip" data-loop="word">this word</button>
+        </div>
+        <div class="row">
+          <span class="lbl">Speed</span>
+          <button class="chip" data-rate="0.85">slower</button>
+          <button class="chip" data-rate="1">normal</button>
+          <button class="chip" data-rate="1.15">faster</button>
+        </div>
+        <div class="row">
+          <span class="lbl">Sleep</span>
+          <button class="chip" data-sleep="0">off</button>
+          <button class="chip" data-sleep="15">15 min</button>
+          <button class="chip" data-sleep="30">30 min</button>
+          <button class="chip" data-sleep="60">60 min</button>
+          <span class="lbl" id="sleepLeft"></span>
+        </div>
+        <div class="row" id="padRow">
+          <span class="lbl">Drift</span>
+          <button class="chip" data-pad="1">soft music on</button>
+          <button class="chip" data-pad="0">voices only</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ───────────── PEEK ───────────── -->
+    <section class="view" id="v-peek">
+      <h1 class="vh">Peek at the words</h1>
+      <p class="vs">Tap a sticker to hear every voice and see how it's spelled.</p>
+      <div id="peekList"></div>
+    </section>
+
+    <!-- ───────────── QUIZ ───────────── -->
+    <section class="view" id="v-quiz">
+      <h1 class="vh">Ear test</h1>
+      <p class="vs">One of the cast says a word. You pick what it means.</p>
+      <div class="quiz">
+        <div class="qtop"><span id="qStreak">Streak 0</span><span id="qBest">Best 0</span></div>
+        <button class="qplay" id="qPlay"><span class="qe" id="qEmoji">🎧</span><span id="qWho">Tap to hear a word</span></button>
+        <div class="qopts" id="qOpts"></div>
+        <div class="qres" id="qRes"></div>
+        <button class="qnext" id="qNext" hidden>Next word</button>
+      </div>
+    </section>
+  </main>
+
+      <div class="transport dock" id="dock">
+        <div class="bar" id="bar" role="slider" aria-label="Position" tabindex="0"><i id="fill"></i><span id="marks"></span></div>
+        <div class="times"><span id="tCur">0:00</span><span id="tTot">0:00</span></div>
+        <div class="ctrl">
+          <button class="sm" id="prev" aria-label="Previous word"><svg viewBox="0 0 24 24"><path d="M6 5h2.4v14H6zM20 5.6v12.8a.8.8 0 0 1-1.25.66L9.6 12.66a.8.8 0 0 1 0-1.32l9.15-6.4A.8.8 0 0 1 20 5.6z"/></svg></button>
+          <button class="sm" id="back" aria-label="Back 10 seconds"><svg viewBox="0 0 24 24"><path d="M12 5V2.2L7.5 6 12 9.8V7a6 6 0 1 1-6 6H4a8 8 0 1 0 8-8z"/><text x="12" y="16.2" text-anchor="middle" font-size="7" font-weight="800">10</text></svg></button>
+          <button class="play" id="play" aria-label="Play"><svg viewBox="0 0 24 24" id="playIco"><path d="M8 5.2v13.6a1 1 0 0 0 1.52.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg></button>
+          <button class="sm" id="again" aria-label="Hear this word again"><svg viewBox="0 0 24 24"><path d="M17 2.5 21 6.5l-4 4V7.6H8.5A3.5 3.5 0 0 0 5 11.1V12H3v-.9a5.5 5.5 0 0 1 5.5-5.5H17zM7 21.5 3 17.5l4-4v2.9h8.5a3.5 3.5 0 0 0 3.5-3.5V12h2v.9a5.5 5.5 0 0 1-5.5 5.5H7z"/></svg></button>
+          <button class="sm" id="next" aria-label="Next word"><svg viewBox="0 0 24 24"><path d="M15.6 5H18v14h-2.4zM4 5.6v12.8a.8.8 0 0 0 1.25.66l9.15-6.4a.8.8 0 0 0 0-1.32L5.25 4.94A.8.8 0 0 0 4 5.6z"/></svg></button>
+        </div>
+      </div>
+
+  <div class="mini" id="mini" hidden>
+    <button class="mplay" id="mPlay" aria-label="Play or pause"><svg viewBox="0 0 24 24" id="mIco"><path d="M8 5.2v13.6a1 1 0 0 0 1.52.86l11-6.8a1 1 0 0 0 0-1.72l-11-6.8A1 1 0 0 0 8 5.2z"/></svg></button>
+    <button class="mtxt" id="mTxt"><b id="mT"></b><small id="mS"></small></button>
+  </div>
+
+  <nav class="tabs">
+    <button data-tab="listen" class="on"><svg viewBox="0 0 24 24"><path d="M12 3a9 9 0 0 0-9 9v5.5A2.5 2.5 0 0 0 5.5 20H7a1 1 0 0 0 1-1v-5a1 1 0 0 0-1-1H5v-1a7 7 0 0 1 14 0v1h-2a1 1 0 0 0-1 1v5a1 1 0 0 0 1 1h1.5a2.5 2.5 0 0 0 2.5-2.5V12a9 9 0 0 0-9-9z"/></svg>Listen</button>
+    <button data-tab="peek"><svg viewBox="0 0 24 24"><path d="M12 5C6.5 5 2.6 9.4 1.5 12c1.1 2.600 5 7 10.500 7s9.400-4.400 10.500-7C21.400 9.400 17.500 5 12 5zm0 11.500a4.500 4.500 0 1 1 0-9 4.500 4.500 0 0 1 0 9zm0-2.500a2 2 0 1 0 0-4 2 2 0 0 0 0 4z"/></svg>Peek</button>
+    <button data-tab="quiz"><svg viewBox="0 0 24 24"><path d="M12 2a10 10 0 1 0 0 20 10 10 0 0 0 0-20zm0 4.200A5.800 5.800 0 1 1 12 17.800 5.800 5.800 0 0 1 12 6.200zm0 3.300a2.500 2.500 0 1 0 0 5 2.500 2.500 0 0 0 0-5z"/></svg>Ear test</button>
+  </nav>
+
+  <div class="sheet-bg" id="sheetBg"></div>
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true"><button class="x" id="sheetX" aria-label="Close">×</button><div id="sheetIn"></div></div>
+  <div class="toast" id="toast"></div>
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
